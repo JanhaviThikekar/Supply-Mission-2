@@ -27,39 +27,33 @@ function setup() {
 	groundSprite=createSprite(width/2, height-35, width,10);
 	groundSprite.shapeColor=color(255)
 
-	box1 = createSprite(500, 610, 20,100);
-	box1.shapeColor=color("red")
+	bottom = createSprite(width/2, 650, 200, 20);
+	bottom.shapeColor = "red";
 
-	box2 = createSprite(300,610, 20,100);
-	box2.shapeColor=color("red")
+	side1 = createSprite(300, 610, 20, 100);
+	side1.shapeColor = "red";
 
-	box3 = createSprite(400,650, 200,20);
-	box3.shapeColor=color("red")
+	side2 = createSprite(500, 610, 20, 100);
+	side2.shapeColor = "red";
 
 
 	engine = Engine.create();
 	world = engine.world;
 
-	packageBody = Bodies.circle(width/2 , 200 , 5, {restitution:0.8});
-	Matter.Body.setStatic(packageBody, true);
+	packageBody = Bodies.circle(width/2 , 200 , 5 , { isStatic:true});
 	World.add(world, packageBody);
+
+	
 	
 
 	//Create a Ground
 	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
-	 World.add(world, ground);
-	 
-	 box1 = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
-	 World.add(world, box1);
-	 
-	box2 = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
-	 World.add(world, box2);
-	 
-	box3 = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
- 	World.add(world,  box3);
+ 	World.add(world, ground);
 
 
 	Engine.run(engine);
+
+	
   
 }
 
@@ -67,23 +61,23 @@ function setup() {
 function draw() {
   rectMode(CENTER);
   background(0);
-  
   packageSprite.x= packageBody.position.x 
   packageSprite.y= packageBody.position.y 
+
+  packageSprite.collide(bottom);
+  packageSprite.collide(side1);
+  packageSprite.collide(side2);
   drawSprites();
-  keyPressed();
- 
  
 }
 
 function keyPressed() {
- if (keyCode == DOWN_ARROW) {
-	 console.log("down")
+ if (keyCode === DOWN_ARROW) {
+	// Look at the hints in the document and understand how to make the package body fall only on
+
 	Matter.Body.setStatic(packageBody, false);
-	   
+
 	
+    
   }
 }
-
-
-
